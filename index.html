@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>I think you're really cute ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Inline CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif; /* Fallback font family */
+      text-align: center; /* Center-align text */
+      margin: 0; /* Remove default margin */
+      background-color: #FADADD; /* Light pink background */
+    }
+    #container {
+      display: flex; /* Use flexbox layout */
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center; /* Center-align items horizontally */
+      justify-content: center; /* Center-align items vertically */
+      height: 100vh; /* Full viewport height */
+    }
+    #image-container {
+      /* Container for displaying the dog images */
+    }
+    #question {
+      font-family: 'Sacramento', cursive, sans-serif; /* Cursive if available */
+      font-size: 52px; /* Font size for the question */
+      margin-top: 20px;
+    }
+    #options {
+      margin-top: 20px; /* Space above the options */
+    }
+    button {
+      padding: 10px 20px; /* Button padding */
+      margin: 0 10px; /* Margin around buttons */
+      font-size: 26px; /* Button font size */
+      font-family: 'Sacramento', cursive, sans-serif; /* Cursive if available */
+      background-color: #FB607F; /* Button background color */
+      color: white; /* Text color */
+      border: none; /* Remove border */
+      cursor: pointer; /* Pointer on hover */
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #FF91A4; /* Lighter pink on hover */
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="image-container"></div>
+    <div id="question">I think you're really cute and I'll miss you ilysm <3</div>
+    <div id="options">
+      <button id="yes-button" onclick="selectOption('yes')">awwwww thanks ily2 <3</button>
+      <button id="no-button" onclick="selectOption('no')">mar jaa bsdk</button>
+    </div>
+  </div>
+
+  <!-- Inline JavaScript -->
+  <script>
+    // Function to handle button click events
+    function selectOption(option) {
+      if (option === 'yes') {
+        // Flash rainbow colors, then show the dog-heart image
+        flashRainbowColors(function() {
+          document.getElementById('question').style.display = 'none';
+          displayDogHeart();
+        });
+      } else if (option === 'no') {
+        // Change "No" button text, enlarge "Yes" button
+        document.getElementById('no-button').innerText = 'You sure?';
+        var yesButton = document.getElementById('yes-button');
+        var currentFontSize = window.getComputedStyle(yesButton).getPropertyValue('font-size');
+        var newSize = parseFloat(currentFontSize) * 2;
+        yesButton.style.fontSize = newSize + 'px';
+      } else {
+        alert('Invalid option!');
+      }
+    }
+
+    // Function to flash rainbow colors
+    function flashRainbowColors(callback) {
+      var colors = [
+        '#ff0000',
+        '#ff7f00',
+        '#ffff00',
+        '#00ff00',
+        '#0000ff',
+        '#4b0082',
+        '#9400d3'
+      ];
+      var i = 0;
+      var interval = setInterval(function() {
+        document.body.style.backgroundColor = colors[i];
+        i = (i + 1) % colors.length;
+      }, 200); // Change color every 200 ms
+
+      setTimeout(function() {
+        clearInterval(interval);
+        document.body.style.backgroundColor = ''; // Reset background
+        if (callback) {
+          callback();
+        }
+      }, 2000); // Flash colors for 2 seconds
+    }
+
+    // Function to display the dog.gif (initial image)
+    function displayDog() {
+      var imageContainer = document.getElementById('image-container');
+      var dogImage = new Image();
+      dogImage.src = "dog.gif";  // Reference to your actual dog.gif file
+      dogImage.alt = 'Dog';
+      dogImage.onload = function() {
+        imageContainer.appendChild(dogImage);
+      };
+    }
+
+    // Function to display the dog-heart.gif (after clicking Yes)
+    function displayDogHeart() {
+      var imageContainer = document.getElementById('image-container');
+      imageContainer.innerHTML = '';
+      var dogHeartImage = new Image();
+      dogHeartImage.src = "dog-heart.gif";  // Reference to your actual dog-heart.gif file
+      dogHeartImage.alt = 'Dog Heart';
+      dogHeartImage.onload = function() {
+        imageContainer.appendChild(dogHeartImage);
+        document.getElementById('options').style.display = 'none';
+      };
+    }
+
+    // Show the initial dog image on page load
+    displayDog();
+  </script>
+</body>
+</html>
